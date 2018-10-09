@@ -1,24 +1,10 @@
-object CategoryTheory extends App {
+object Product extends App {
 
-  //sealed trait CategoryOject
-  case object A {
-    val value = 2
-  }
-  case object B {
-    val value = 4
-  }
+  case class Product[A, B](fst: A, snd: B)
 
-  case object C {
-    val value = 2
-  }
-  //case class Product[A, B](fst: A => A, snd: B => B) extends CategoryOject
-  //case class Category[C](c: C, categoryObject: CategoryOject)
-
-  //val pair = Product(fst, snd)
-  //val one: Int = pair.fst(0)
-  //val two: Int = pair.snd(0)
-
-
+  val pair: Product[Int, String] = Product(1, "two")
+  val one: Int = pair.fst
+  val two: String = pair.snd
 
   /* theory
    𝒞(C, AxB) ≅ 𝒞(C,A) x 𝒞(C,B)
@@ -26,30 +12,24 @@ object CategoryTheory extends App {
    fst andThen h = f
   */
 
-  //val firstCategory = Category(C, pair)
-  //val secondCategory = Category(C, A)
-  //val thirdCategory = Category(C, B)
-
-  //firstCategory == secondCategory x thirdCategory
-
-  val a = A
-  val b = B
-  val c = C
-
-  val fst: Int => Int = ab => ab / b.value
-  val snd: Int => Int = ab => ab / a.value
+  val fst: Int => Int = ab => ab / 4
+  val snd: Int => Int = ab => ab / 2
   val h: Int => Int = c => c * 4
   val f: Int => Int = c => c * 1
   val g: Int => Int = c => c * 2
 
   // proof - fst ∘ h = f
 
-  val composedFunc = h andThen fst
+  val composedFuncCtoA = h andThen fst
 
-  val result = composedFunc(2) == f(2)
+  val composedFuncCtoB = h andThen snd
 
+  val result1 = composedFuncCtoA(2) == f(2)
 
-  println("The result is: " + result)
+  val result2 = composedFuncCtoB(2) == g(2)
+
+  println("fst ∘ h = f " + result1)
+  println("snd ∘ h = g " + result2)
 }
 
 

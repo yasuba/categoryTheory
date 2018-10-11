@@ -1,4 +1,4 @@
-object Product extends App {
+object Duals extends App {
 
   case class Product[A, B](fst: A, snd: B)
 
@@ -30,6 +30,18 @@ object Product extends App {
 
   println("fst ∘ h = f " + result1)
   println("snd ∘ h = g " + result2)
+
+  trait Sum[A,B]
+  case class Left[A,B](x: A) extends Sum[A,B]
+  case class Right[A,B](y: B) extends Sum[A,B]
+
+  type ErrInt[A,B] = Sum[A,B] => String => Int
+
+  val err: Left[String, Int] = Left("error")
+  val rightOne: Right[String, Int] = Right(1)
+
+  def add[A,B](): ErrInt[A,B] => ErrInt[A,B] => ErrInt[A,B] =
+
 }
 
 
